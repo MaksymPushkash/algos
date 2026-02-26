@@ -29,8 +29,17 @@ DFS - пошук в глибину. Depth First Search
 def dfs(node):
     if not node:
         return
+
+    (pre-order)
+
     dfs(node.left)
+
+    (in-order)
+    
     dfs(node.right)
+
+    (post-order)
+
     return
 
     
