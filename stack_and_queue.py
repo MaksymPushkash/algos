@@ -231,7 +231,7 @@ def simplifyPath(path: str) -> str:
         if c == "" or c == ".":
             continue
         elif c == "..":
-            if stak:
+            if stack:
                 stack.pop()
         else:
             stack.append(c)
