@@ -1,4 +1,3 @@
-
 If input array is sorted then
 
     - Binary search
@@ -70,3 +69,10 @@ Else
 
     - Map/Set for O(1) time & O(n) space
     - Sort input for O(nlogn) time and O(1) space
+
+
+
+https://seanprashad.com/leetcode-patterns/
+
+https://blog.algomaster.io/p/15-leetcode-patterns
+
