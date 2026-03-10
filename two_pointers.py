@@ -79,9 +79,9 @@ def isPalindrome(s: str) -> bool:
     while left < right:
         if not s[left].isalnum():
             left +=1
-        elif not s[right].isalnum():
+        if not s[right].isalnum():
             right -= 1
-        elif s[left].lower() == s[right].lower():
+        if s[left].lower() == s[right].lower():
             left += 1
             right -= 1
         else:
@@ -607,3 +607,9 @@ def merge2(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         nums1[result] = nums2[p2]
         p2 -= 1
         result -= 1
+        
+        
+        
+        
+        
+        
