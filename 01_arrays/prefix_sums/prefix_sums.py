@@ -1,7 +1,4 @@
-# Visit www.neon.rip for more content!
-
 class PrefixSum:
-
     def __init__(self, nums):
         self.prefix = []
         total = 0

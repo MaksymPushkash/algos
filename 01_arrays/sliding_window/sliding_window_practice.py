@@ -22,6 +22,12 @@ Pattern Sliding Window
 
 
 
+Sliding Window:
+    ● "Substring" with conditions
+    ● "Subarray" with fixed/variable size
+    ● "Maximum/minimum window"
+    ● "Contains all"
+
 
 карказ sliding window:
 
@@ -157,7 +163,7 @@ def minSubArrayLen(target: int, nums: List[int]) -> int:
 
     if result == float('inf'):
         return 0
-    return result
+    return int(result)
 
 
 

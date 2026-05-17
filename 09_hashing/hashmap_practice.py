@@ -30,7 +30,7 @@ bucket(linked lists) це там де зберігаються ці ключ з�
 
 
 
-є мехназм open addressing
+є механізм open addressing
 він наприклад йде в бакет 0, бачить що вже цей бакет забитий, і йде перевіряти наступний
 
 
@@ -60,19 +60,82 @@ void remove(key) removes the key and its corresponding value if the map contains
 '''
 
 
-class MyHashMap:
-    def __init__(self):
-        pass
+class Node:
+    def __init__(self, key: int, value: int, next_node=None) -> None:
+        self.key = key
+        self.value = value
+        self.next = next_node
 
-    def put(self, key: int, value: int) -> None:
-        pass
-        
+class LinkedList:
+    def __init__(self) -> None:
+        self.head = None
 
     def get(self, key: int) -> int:
-        pass
+        current = self.head
+
+        while current is not None:
+            if current.key == key:
+                return current.value
+            
+            current = current.next
         
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        current = self.head
+
+        while current is not None:
+            if current.key == key:
+                current.value = value
+                return
+            
+            current = current.next
+        
+        new_node = Node(key, value, self.head)
+        self.head = new_node
+    
+    def remove(self, key: int) -> None:
+        if self.head is None:
+            return
+        
+        if self.head.key == key:
+            self.head = self.head.next
+            return
+        
+        current = self.head
+
+        while current.next is not None:
+            if current.next.key == key:
+                current.next = current.next.next
+                return
+            
+            current = current.next
+
+
+class MyHashMap:
+    def __init__(self) -> None:
+        self.n = 991
+        self.buckets = [LinkedList() for _ in range(self.n)]
+    
+    def hash(self, key: int) -> int:
+        return key % self.n
+
+
+    def put(self, key: int, value: int) -> None:
+        index = self.hash(key)
+        self.buckets[index].put(key, value)
+
+    def get(self, key: int) -> int:
+        index = self.hash(key)
+        return self.buckets[index].get(key)
 
     def remove(self, key: int) -> None:
-        pass
+        index = self.hash(key)
+        self.buckets[index].remove(key)
         
 
+# Your MyHashMap object will be instantiated and called as such:
+# obj = MyHashMap()
+# obj.put(key,value)
+# param_2 = obj.get(key)
+# obj.remove(key)

@@ -79,14 +79,15 @@ def isPalindrome(s: str) -> bool:
     while left < right:
         if not s[left].isalnum():
             left +=1
+            continue
         if not s[right].isalnum():
             right -= 1
+            continue
         if s[left].lower() == s[right].lower():
             left += 1
             right -= 1
         else:
             return False
-        
     return True 
 
 # ==========================================================================================
@@ -209,7 +210,37 @@ def threeSum(nums: List[int]) -> List[List[int]]:
                 right -= 1
             else:
                 left += 1
-    return result
+    return list(result)
+
+
+
+def threeSum2(nums: list[int]):
+    # sorting
+    for i in range(1, len(nums)):
+        j = i - 1
+        while j >= 0 and nums[j + 1] < nums[j]:
+            nums[j], nums[j + 1] = nums[j + 1], nums[j]
+            j -= 1
+
+    result = set()
+
+    for i in range(len(nums)):
+        target = -nums[i]
+        left = i + 1
+        right = len(nums) - 1
+
+        while left < right:
+            current_sum = nums[left] + nums[right]
+
+            if current_sum == target:
+                result.add((-target, nums[left], nums[right]))
+                left += 1
+                right -= 1
+            elif current_sum > target:
+                right -= 1
+            else:
+                left += 1
+    return list(result)
 
 
 # ==========================================================================================
@@ -266,7 +297,7 @@ def sortedSquares(nums: List[int]) -> List[int]:
 
 '''
 
-ДЗ - Done
+ДЗ - DONE
 
 11. Container with most water
 
@@ -452,7 +483,7 @@ def isSubsequence(sub: str, s: str) -> bool:
 
 '''
 
-ДЗ
+ДЗ - DONE
 
 844. Backspace String Compare
 
@@ -493,14 +524,34 @@ Explanation: s becomes "c" while t becomes "b".
 def backspaceCompare(s: str, t: str) -> bool:
     n = len(s) - 1
     m = len(t) - 1
-
     skip_s = 0
     skip_t = 0
 
-    while n >= 0 and m >= 0:
-        # implement skip (if # or skip_counter > 0)
+    while n >= 0 or m >= 0:
+        while n >= 0:
+            if s[n] == "#":
+                n -= 1
+                skip_s += 1
+            elif skip_s > 0:
+                n -= 1
+                skip_s -= 1
+            else:
+                break
+                
+        while m >= 0:
+            if t[m] == "#":
+                m -= 1
+                skip_t += 1
+            elif skip_t > 0:
+                m -= 1
+                skip_t -= 1
+            else:
+                break
 
-        if s[n] != s[m]:
+        if n >= 0 and m >= 0:
+            if s[n] != s[m]:
+                return False
+        elif n >= 0 or m >= 0:
             return False
 
         n -= 1
@@ -562,7 +613,6 @@ Note that because m = 0, there are no elements in nums1.
 
 def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
     result = []
-
     p1 = 0
     p2 = 0
 
@@ -574,15 +624,14 @@ def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
             result.append(nums2[p2])
             p2 += 1
 
-    for k in range(i, m):
+    for k in range(p1, m):
         result.append(nums1[k])
     
-    for k in range(i, n):
+    for k in range(p2, n):
         result.append(nums2[k])
 
     for i in range(len(result)):
         nums1[i] = result[i]
-    
     return
 
 
@@ -601,7 +650,6 @@ def merge2(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
             p2 -= 1
         
         result -= 1
-    
     
     while p2 >= 0:
         nums1[result] = nums2[p2]
